@@ -1,0 +1,8 @@
+{
+  "note": "Hash of the TSCM Field app access code. The code itself is never stored here.",
+  "salt": "fcee1f3e9e3e651de149e210db31af03",
+  "iterations": 300000,
+  "hashes": [
+    "f44f79ba1789f9f51a81411ea1bfd6b54a4f1fb4e8a8f802c23197c1e8de46c0"
+  ]
+}
