@@ -10,6 +10,7 @@ No GitHub account is needed. The app asks for the access code when it opens.
 - **Mac (Apple silicon):** https://github.com/jmlasorsa/tscm-field-releases/releases/latest/download/tscm-field-mac.dmg
 - **Windows:** https://github.com/jmlasorsa/tscm-field-releases/releases/latest/download/tscm-field-windows.msi
 - **Linux (.deb):** https://github.com/jmlasorsa/tscm-field-releases/releases/latest/download/tscm-field-linux.deb
+- **Linux on Fedora, openSUSE and other non-Debian systems:** see [linux/README.md](linux/README.md) for an `.rpm` or a portable `.tar.gz`
 - **User manual (PDF):** https://github.com/jmlasorsa/tscm-field-releases/releases/latest/download/tscm-field-manual.pdf
 
 ## Install
@@ -23,6 +24,10 @@ No GitHub account is needed. The app asks for the access code when it opens.
 
 1. Open the link for your computer and run the downloaded installer.
 2. The installers are not signed yet, so the computer warns you the first time. Mac: right-click the app and choose Open. Windows: click More info, then Run anyway.
+
+**Fedora, openSUSE and other non-Debian Linux**
+
+The `.deb` installs only on Debian and Ubuntu. To get an `.rpm` or a portable version made from the same `.deb`, follow [linux/README.md](linux/README.md).
 
 ## Updates
 

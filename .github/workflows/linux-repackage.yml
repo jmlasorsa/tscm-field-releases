@@ -1,0 +1,44 @@
+# Attach an .rpm and a portable .tar.gz, made from the release's .deb, to each release.
+name: Linux repackage
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Release tag to repackage
+        required: true
+
+permissions:
+  contents: write
+
+jobs:
+  repackage:
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+      TAG: ${{ github.event.release.tag_name || inputs.tag }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install rpm tooling
+        run: sudo apt-get update && sudo apt-get install -y rpm zstd
+
+      - name: Download the release .deb
+        run: gh release download "$TAG" -R "$GITHUB_REPOSITORY" -p tscm-field-linux.deb -D "$RUNNER_TEMP"
+
+      - name: Repackage
+        run: |
+          mkdir -p "$RUNNER_TEMP/out"
+          OUT_DIR="$RUNNER_TEMP/out" linux/repackage.sh all "$RUNNER_TEMP/tscm-field-linux.deb"
+          cd "$RUNNER_TEMP/out"
+          # Fixed names so the releases/latest/download links in the README keep working.
+          cp tscm-field-*.x86_64.rpm tscm-field-linux.rpm
+          cp tscm-field-*-linux-x86_64.tar.gz tscm-field-linux-x86_64.tar.gz
+
+      - name: Attach to the release
+        run: |
+          gh release upload "$TAG" -R "$GITHUB_REPOSITORY" --clobber \
+            "$RUNNER_TEMP/out/tscm-field-linux.rpm" \
+            "$RUNNER_TEMP/out/tscm-field-linux-x86_64.tar.gz"
